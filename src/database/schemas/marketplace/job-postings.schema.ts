@@ -57,9 +57,9 @@ export const jobPostings = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    clientIdx: index('job_postings_client_idx').on(table.clientId),
-    orgIdx: index('job_postings_org_idx').on(table.organizationId),
-    statusIdx: index('job_postings_status_idx').on(table.status),
-  }),
+  (table) => [
+    index('job_postings_client_idx').on(table.clientId),
+    index('job_postings_org_idx').on(table.organizationId),
+    index('job_postings_status_idx').on(table.status),
+  ],
 );

@@ -35,8 +35,8 @@ export const organizations = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    slugIdx: uniqueIndex('organizations_slug_idx').on(table.slug),
-    ownerIdx: index('organizations_owner_idx').on(table.ownerUserId),
-  }),
+  (table) => [
+    uniqueIndex('organizations_slug_idx').on(table.slug),
+    index('organizations_owner_idx').on(table.ownerUserId),
+  ],
 );

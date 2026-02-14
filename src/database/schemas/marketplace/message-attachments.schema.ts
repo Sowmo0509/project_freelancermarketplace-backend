@@ -16,7 +16,5 @@ export const messageAttachments = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => [
-    index('message_attachments_message_idx').on(table.messageId),
-  ],
+  (table) => [index('message_attachments_message_idx').on(table.messageId)],
 );

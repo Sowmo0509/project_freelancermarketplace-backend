@@ -22,8 +22,8 @@ export const notifications = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userIdx: index('notifications_user_idx').on(table.userId),
-    readIdx: index('notifications_read_idx').on(table.readAt),
-  }),
+  (table) => [
+    index('notifications_user_idx').on(table.userId),
+    index('notifications_read_idx').on(table.readAt),
+  ],
 );

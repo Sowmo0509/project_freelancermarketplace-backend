@@ -26,9 +26,9 @@ export const jobInvites = pgTable(
       .notNull(),
     respondedAt: timestamp('responded_at', { withTimezone: true }),
   },
-  (table) => ({
-    jobIdx: index('job_invites_job_idx').on(table.jobId),
-    freelancerIdx: index('job_invites_freelancer_idx').on(table.freelancerId),
-    statusIdx: index('job_invites_status_idx').on(table.status),
-  }),
+  (table) => [
+    index('job_invites_job_idx').on(table.jobId),
+    index('job_invites_freelancer_idx').on(table.freelancerId),
+    index('job_invites_status_idx').on(table.status),
+  ],
 );

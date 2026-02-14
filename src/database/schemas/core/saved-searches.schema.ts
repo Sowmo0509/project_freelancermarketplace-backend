@@ -24,7 +24,5 @@ export const savedSearches = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userIdx: index('saved_searches_user_idx').on(table.userId),
-  }),
+  (table) => [index('saved_searches_user_idx').on(table.userId)],
 );

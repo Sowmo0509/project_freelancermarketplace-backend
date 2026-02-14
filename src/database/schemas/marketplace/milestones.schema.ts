@@ -31,8 +31,8 @@ export const milestones = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    contractIdx: index('milestones_contract_idx').on(table.contractId),
-    statusIdx: index('milestones_status_idx').on(table.status),
-  }),
+  (table) => [
+    index('milestones_contract_idx').on(table.contractId),
+    index('milestones_status_idx').on(table.status),
+  ],
 );

@@ -26,7 +26,5 @@ export const conversations = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    creatorIdx: index('conversations_creator_idx').on(table.createdBy),
-  }),
+  (table) => [index('conversations_creator_idx').on(table.createdBy)],
 );

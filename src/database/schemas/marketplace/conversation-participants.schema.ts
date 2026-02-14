@@ -21,13 +21,14 @@ export const conversationParticipants = pgTable(
     joinedAt: timestamp('joined_at', { withTimezone: true }).defaultNow(),
     lastReadAt: timestamp('last_read_at', { withTimezone: true }),
   },
-  (table) => ({
-    conversationIdx: index('conversation_participants_conversation_idx').on(
+  (table) => [
+    index('conversation_participants_conversation_idx').on(
       table.conversationId,
     ),
-    userIdx: index('conversation_participants_user_idx').on(table.userId),
-    uniqueParticipantIdx: uniqueIndex(
-      'conversation_participants_unique_idx',
-    ).on(table.conversationId, table.userId),
-  }),
+    index('conversation_participants_user_idx').on(table.userId),
+    uniqueIndex('conversation_participants_unique_idx').on(
+      table.conversationId,
+      table.userId,
+    ),
+  ],
 );

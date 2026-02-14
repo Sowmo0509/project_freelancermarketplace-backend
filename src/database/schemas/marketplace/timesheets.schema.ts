@@ -24,9 +24,9 @@ export const timesheets = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    contractIdx: index('timesheets_contract_idx').on(table.contractId),
-    freelancerIdx: index('timesheets_freelancer_idx').on(table.freelancerId),
-    statusIdx: index('timesheets_status_idx').on(table.status),
-  }),
+  (table) => [
+    index('timesheets_contract_idx').on(table.contractId),
+    index('timesheets_freelancer_idx').on(table.freelancerId),
+    index('timesheets_status_idx').on(table.status),
+  ],
 );

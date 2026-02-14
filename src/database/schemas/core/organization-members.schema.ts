@@ -29,10 +29,10 @@ export const organizationMembers = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    membershipIdx: uniqueIndex('organization_membership_idx').on(
+  (table) => [
+    uniqueIndex('organization_membership_idx').on(
       table.organizationId,
       table.userId,
     ),
-  }),
+  ],
 );

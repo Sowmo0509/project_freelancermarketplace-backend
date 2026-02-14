@@ -21,7 +21,5 @@ export const certifications = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userIdx: index('certifications_user_idx').on(table.userId),
-  }),
+  (table) => [index('certifications_user_idx').on(table.userId)],
 );

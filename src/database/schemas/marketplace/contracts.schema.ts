@@ -48,9 +48,9 @@ export const contracts = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    clientIdx: index('contracts_client_idx').on(table.clientId),
-    freelancerIdx: index('contracts_freelancer_idx').on(table.freelancerId),
-    statusIdx: index('contracts_status_idx').on(table.status),
-  }),
+  (table) => [
+    index('contracts_client_idx').on(table.clientId),
+    index('contracts_freelancer_idx').on(table.freelancerId),
+    index('contracts_status_idx').on(table.status),
+  ],
 );

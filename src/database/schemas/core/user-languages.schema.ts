@@ -26,10 +26,10 @@ export const userLanguages = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userLanguageIdx: uniqueIndex('user_languages_unique_idx').on(
+  (table) => [
+    uniqueIndex('user_languages_unique_idx').on(
       table.userId,
       table.languageCode,
     ),
-  }),
+  ],
 );

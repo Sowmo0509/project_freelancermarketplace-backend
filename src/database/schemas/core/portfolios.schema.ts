@@ -25,7 +25,5 @@ export const portfolios = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userIdx: index('portfolios_user_idx').on(table.userId),
-  }),
+  (table) => [index('portfolios_user_idx').on(table.userId)],
 );

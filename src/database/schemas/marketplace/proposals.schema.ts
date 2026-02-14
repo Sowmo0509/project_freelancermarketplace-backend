@@ -36,13 +36,10 @@ export const proposals = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    jobIdx: index('proposals_job_idx').on(table.jobId),
-    freelancerIdx: index('proposals_freelancer_idx').on(table.freelancerId),
-    statusIdx: index('proposals_status_idx').on(table.status),
-    uniqueProposalIdx: uniqueIndex('proposals_unique_idx').on(
-      table.jobId,
-      table.freelancerId,
-    ),
-  }),
+  (table) => [
+    index('proposals_job_idx').on(table.jobId),
+    index('proposals_freelancer_idx').on(table.freelancerId),
+    index('proposals_status_idx').on(table.status),
+    uniqueIndex('proposals_unique_idx').on(table.jobId, table.freelancerId),
+  ],
 );

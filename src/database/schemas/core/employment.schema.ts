@@ -27,7 +27,5 @@ export const employment = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userIdx: index('employment_user_idx').on(table.userId),
-  }),
+  (table) => [index('employment_user_idx').on(table.userId)],
 );

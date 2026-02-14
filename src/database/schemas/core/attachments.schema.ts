@@ -30,7 +30,5 @@ export const attachments = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    ownerIdx: index('attachments_owner_idx').on(table.ownerUserId),
-  }),
+  (table) => [index('attachments_owner_idx').on(table.ownerUserId)],
 );

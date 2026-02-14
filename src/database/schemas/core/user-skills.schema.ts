@@ -30,10 +30,7 @@ export const userSkills = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userSkillIdx: uniqueIndex('user_skills_unique_idx').on(
-      table.userId,
-      table.skillId,
-    ),
-  }),
+  (table) => [
+    uniqueIndex('user_skills_unique_idx').on(table.userId, table.skillId),
+  ],
 );

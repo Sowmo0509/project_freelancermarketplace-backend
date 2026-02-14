@@ -28,10 +28,8 @@ export const milestoneSubmissions = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    milestoneIdx: index('milestone_submissions_milestone_idx').on(
-      table.milestoneId,
-    ),
-    statusIdx: index('milestone_submissions_status_idx').on(table.status),
-  }),
+  (table) => [
+    index('milestone_submissions_milestone_idx').on(table.milestoneId),
+    index('milestone_submissions_status_idx').on(table.status),
+  ],
 );

@@ -22,12 +22,12 @@ export const jobCategories = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    slugIdx: uniqueIndex('job_categories_slug_idx').on(table.slug),
-    parentIdx: index('job_categories_parent_idx').on(table.parentId),
-    parentFk: foreignKey({
+  (table) => [
+    uniqueIndex('job_categories_slug_idx').on(table.slug),
+    index('job_categories_parent_idx').on(table.parentId),
+    foreignKey({
       columns: [table.parentId],
       foreignColumns: [table.id],
     }).onDelete('set null'),
-  }),
+  ],
 );

@@ -15,10 +15,10 @@ export const savedFreelancers = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    uniqueSavedFreelancerIdx: uniqueIndex('saved_freelancers_unique_idx').on(
+  (table) => [
+    uniqueIndex('saved_freelancers_unique_idx').on(
       table.userId,
       table.freelancerId,
     ),
-  }),
+  ],
 );

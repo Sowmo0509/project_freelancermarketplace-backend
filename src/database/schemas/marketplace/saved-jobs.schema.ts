@@ -16,10 +16,7 @@ export const savedJobs = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    uniqueSavedJobIdx: uniqueIndex('saved_jobs_unique_idx').on(
-      table.userId,
-      table.jobId,
-    ),
-  }),
+  (table) => [
+    uniqueIndex('saved_jobs_unique_idx').on(table.userId, table.jobId),
+  ],
 );

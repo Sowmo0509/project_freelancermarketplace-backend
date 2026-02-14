@@ -40,9 +40,7 @@ export const userProfiles = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    visibilityIdx: index('user_profiles_visibility_idx').on(
-      table.profileVisibility,
-    ),
-  }),
+  (table) => [
+    index('user_profiles_visibility_idx').on(table.profileVisibility),
+  ],
 );

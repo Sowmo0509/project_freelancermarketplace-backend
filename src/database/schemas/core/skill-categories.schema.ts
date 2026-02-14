@@ -22,12 +22,12 @@ export const skillCategories = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    slugIdx: uniqueIndex('skill_categories_slug_idx').on(table.slug),
-    parentIdx: index('skill_categories_parent_idx').on(table.parentId),
-    parentFk: foreignKey({
+  (table) => [
+    uniqueIndex('skill_categories_slug_idx').on(table.slug),
+    index('skill_categories_parent_idx').on(table.parentId),
+    foreignKey({
       columns: [table.parentId],
       foreignColumns: [table.id],
     }).onDelete('set null'),
-  }),
+  ],
 );

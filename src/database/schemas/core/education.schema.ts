@@ -27,7 +27,5 @@ export const education = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    userIdx: index('education_user_idx').on(table.userId),
-  }),
+  (table) => [index('education_user_idx').on(table.userId)],
 );

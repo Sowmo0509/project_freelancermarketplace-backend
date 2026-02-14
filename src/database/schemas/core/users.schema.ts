@@ -31,9 +31,9 @@ export const users = pgTable(
       .notNull(),
     deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
-  (table) => ({
-    emailIdx: uniqueIndex('users_email_idx').on(table.email),
-    usernameIdx: uniqueIndex('users_username_idx').on(table.username),
-    statusIdx: index('users_status_idx').on(table.status),
-  }),
+  (table) => [
+    uniqueIndex('users_email_idx').on(table.email),
+    uniqueIndex('users_username_idx').on(table.username),
+    index('users_status_idx').on(table.status),
+  ],
 );

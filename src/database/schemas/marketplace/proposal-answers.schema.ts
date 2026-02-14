@@ -17,7 +17,5 @@ export const proposalAnswers = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    proposalIdx: index('proposal_answers_proposal_idx').on(table.proposalId),
-  }),
+  (table) => [index('proposal_answers_proposal_idx').on(table.proposalId)],
 );

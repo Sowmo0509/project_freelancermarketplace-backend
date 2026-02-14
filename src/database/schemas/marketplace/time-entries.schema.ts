@@ -27,7 +27,5 @@ export const timeEntries = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    timesheetIdx: index('time_entries_timesheet_idx').on(table.timesheetId),
-  }),
+  (table) => [index('time_entries_timesheet_idx').on(table.timesheetId)],
 );

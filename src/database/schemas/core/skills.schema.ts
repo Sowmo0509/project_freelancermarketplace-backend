@@ -24,8 +24,8 @@ export const skills = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    slugIdx: uniqueIndex('skills_slug_idx').on(table.slug),
-    categoryIdx: index('skills_category_idx').on(table.categoryId),
-  }),
+  (table) => [
+    uniqueIndex('skills_slug_idx').on(table.slug),
+    index('skills_category_idx').on(table.categoryId),
+  ],
 );
