@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { Worker, Job } from 'bullmq';
 import { MailService, SendEmailOptions } from './mail.service';
 
