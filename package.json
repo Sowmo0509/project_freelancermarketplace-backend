@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/schedule": "^6.1.1",
     "@thallesp/nestjs-better-auth": "^2.4.0",
+    "@types/nodemailer": "^7.0.10",
     "axios": "^1.13.5",
     "bullmq": "^5.69.3",
     "cache-manager": "^7.2.8",
@@ -40,6 +41,7 @@
     "dotenv": "^17.3.1",
     "drizzle-orm": "^0.45.1",
     "express-session": "^1.19.0",
+    "nodemailer": "^8.0.1",
     "pg": "^8.18.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
