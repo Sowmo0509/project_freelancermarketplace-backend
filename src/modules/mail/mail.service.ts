@@ -14,28 +14,38 @@ export interface SendEmailOptions {
 @Injectable()
 export class MailService {
   private transporter: Transporter<SendMailOptions>;
+  private readonly defaultFrom: string;
 
   constructor() {
-    const user = process.env.GMAIL_USER;
-    const pass = process.env.GMAIL_APP_PASS;
+    const host = process.env.SMTP_HOST;
+    const port = process.env.SMTP_PORT;
+    const secure = process.env.SMTP_SECURE;
+    const user = process.env.SMTP_USERNAME;
+    const pass = process.env.SMTP_PASSWORD;
+    const from = process.env.EMAIL_FROM ?? user;
 
-    if (!user || !pass) {
+    if (!host || !port || !user || !pass || !from) {
       throw new InternalServerErrorException(
-        'Gmail credentials are not defined in environment variables',
+        'SMTP credentials are not defined in environment variables',
       );
     }
 
+    const portNumber = Number(port);
+    const isSecure = secure === 'true' || secure === '1';
+
+    this.defaultFrom = from;
+
     this.transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com', // SMTP host for Gmail
-      port: 465, // SSL port
-      secure: true, // true for 465, false for 587
+      host,
+      port: Number.isNaN(portNumber) ? 587 : portNumber,
+      secure: isSecure,
       auth: { user, pass },
     });
   }
 
   async sendEmail(options: SendEmailOptions): Promise<SentMessageInfo> {
     const mailOptions: SendMailOptions = {
-      from: `"MyApp" <${process.env.GMAIL_USER}>`,
+      from: `"MyApp" <${this.defaultFrom}>`,
       to: options.to,
       subject: options.subject,
       html: options.html,

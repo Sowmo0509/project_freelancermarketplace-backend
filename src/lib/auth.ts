@@ -15,11 +15,6 @@ export const auth = (moduleRef: ModuleRef) => {
       provider: 'pg',
       schema: authSchema,
     }),
-    advanced: {
-      database: {
-        generateId: 'serial',
-      },
-    },
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: true,
