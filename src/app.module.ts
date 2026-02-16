@@ -7,9 +7,11 @@ import { AuthController } from './auth/auth.controller';
 import { auth } from './lib/auth';
 import { BullModule } from '@nestjs/bullmq';
 import { MailQueue } from './modules/mail/mail.queue';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule.forRootAsync({
       inject: [ModuleRef],
       useFactory: (moduleRef: ModuleRef) => ({
