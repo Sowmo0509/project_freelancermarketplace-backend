@@ -15,6 +15,10 @@ export class MailQueue {
   }
 
   async addEmailJob(data: { to: string; subject: string; html: string }) {
+    console.log(
+      '[MailQueue] Enqueuing email job',
+      JSON.stringify({ to: data.to, subject: data.subject }),
+    );
     await this.queue.add('send-email', data);
   }
 }

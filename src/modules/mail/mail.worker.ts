@@ -7,6 +7,10 @@ new Worker<SendEmailOptions>(
   'emails',
   async (job: Job<SendEmailOptions>) => {
     const { to, subject, html } = job.data;
+    console.log(
+      '[MailWorker] Processing email job',
+      JSON.stringify({ to, subject }),
+    );
     await mailService.sendEmail({ to, subject, html });
   },
   {
