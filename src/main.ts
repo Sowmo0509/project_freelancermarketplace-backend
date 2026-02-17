@@ -22,21 +22,17 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const jsonParser: RequestHandler = json();
-  const urlencodedParser: RequestHandler = urlencoded({ extended: true });
-
+  // Apply body parsers to non-auth routes only
   app.use((req: Request, res: Response, next: NextFunction) => {
     if (req.url.startsWith('/api/auth')) {
       return next();
     }
-    return jsonParser(req, res, next);
-  });
-
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.url.startsWith('/api/auth')) {
-      return next();
-    }
-    return urlencodedParser(req, res, next);
+    
+    // Apply both parsers for non-auth routes
+    json()(req, res, (err) => {
+      if (err) return next(err);
+      urlencoded({ extended: true })(req, res, next);
+    });
   });
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
