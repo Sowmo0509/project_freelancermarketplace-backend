@@ -7,6 +7,7 @@ import {
   uuid,
   index,
 } from 'drizzle-orm/pg-core';
+import { userTypeEnum } from '../enums.schema';
 
 export const user = pgTable('user', {
   id: uuid('id')
@@ -16,6 +17,9 @@ export const user = pgTable('user', {
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified').default(false).notNull(),
   image: text('image'),
+  userType: userTypeEnum('user_type').notNull().default('client'),
+  country: text('country'),
+  banned: boolean('banned').notNull().default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
     .defaultNow()

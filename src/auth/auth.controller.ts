@@ -2,6 +2,10 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import type { Auth } from '@thallesp/nestjs-better-auth';
 import { AllowAnonymous, AuthService } from '@thallesp/nestjs-better-auth';
 import type { Response } from 'express';
+import { eq } from 'drizzle-orm';
+import { db } from '../database/drizzle.client';
+import { user } from '../database/schemas/core/auth-schema';
+import { userSettings } from '../database/schemas/core/user-settings.schema';
 import { SignUpDto } from './dto/sign-up.dto';
 
 type SignUpEmailContext = {
@@ -53,6 +57,46 @@ export class AuthController {
     }
 
     const status = typeof result.status === 'number' ? result.status : 201;
+
+    if (status < 400) {
+      try {
+        const [createdUser] = await db
+          .select()
+          .from(user)
+          .where(eq(user.email, body.email))
+          .limit(1);
+
+        if (createdUser) {
+          await db.transaction(async (tx) => {
+            await tx
+              .update(user)
+              .set({
+                userType: body.role === 'freelancer' ? 'freelancer' : 'client',
+                country: body.country,
+              })
+              .where(eq(user.id, createdUser.id));
+
+            if (typeof body.marketingOptIn === 'boolean') {
+              await tx
+                .insert(userSettings)
+                .values({
+                  userId: createdUser.id,
+                  marketingOptIn: body.marketingOptIn,
+                })
+                .onConflictDoUpdate({
+                  target: userSettings.userId,
+                  set: {
+                    marketingOptIn: body.marketingOptIn,
+                  },
+                });
+            }
+          });
+        }
+      } catch (err) {
+        console.error('Failed to persist signup data', err);
+      }
+    }
+
     res.status(status);
     return result.response;
   }

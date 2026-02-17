@@ -8,6 +8,20 @@
       "when": 1771258833230,
       "tag": "0000_aspiring_ben_parker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1771330000000,
+      "tag": "0001_add_user_role_country",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1771330500000,
+      "tag": "0002_update_user_type_and_banned",
+      "breakpoints": true
     }
   ]
 }
