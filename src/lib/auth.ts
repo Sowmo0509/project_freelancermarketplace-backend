@@ -28,11 +28,15 @@ export const auth = (moduleRef: ModuleRef) => {
     emailVerification: {
       sendVerificationEmail: async ({ user, url, token }, request) => {
         try {
-          // ensure this returns a promise
+          const frontendURL =
+            process.env.FRONTEND_URL ?? 'http://localhost:3000';
+          const verificationURL = new URL('/verify-email', frontendURL);
+          verificationURL.searchParams.set('token', token);
+
           await mailQueue.addEmailJob({
             to: user.email,
             subject: 'Verify your email address',
-            html: `<p>Click to verify your email:</p><a href="${url}">${url}</a>`,
+            html: `<p>Click to verify your email:</p><a href="${verificationURL.toString()}">${verificationURL.toString()}</a>`,
           });
         } catch (err) {
           console.error('Failed to enqueue verification email', err);
